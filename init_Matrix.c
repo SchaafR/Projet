@@ -10,7 +10,7 @@ This part only fucuses on the propreties of the matrix
 
 #include<stdio.h>
 #include<stdlib.h>
-#include "constantes.h"
+
 #include "matrix.h"
 #include "window.h"
 #include "process.h"
@@ -20,11 +20,6 @@ This part only fucuses on the propreties of the matrix
 
 
 
-typedef struct Matrix_
-{
-    int ** matrix;
-    int height, width;
-}Matrix;
 
 Matrix* initMatrix(int width, int height) {
     // checking dimentions

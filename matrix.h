@@ -1,13 +1,16 @@
+#pragma once 
+
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
 #include <SDL2/SDL.h>
 
-typedef struct Matrix_
-{
+
+typedef struct Matrix_ {
     int ** matrix;
     int height, width;
-}Matrix;
+} Matrix;
+
 //for matrix init
 Matrix* initMatrix(int width, int height);
 

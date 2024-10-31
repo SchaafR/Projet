@@ -7,7 +7,7 @@ This part only focuses on the window where the game will be displayed.
 #include<stdlib.h>
 #include <SDL2/SDL.h>
 #include "window.h"
-#include "constantes.h"
+
 #include "process.h"
 #include "matrix.h"
 
