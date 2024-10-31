@@ -3,7 +3,8 @@
     "files.associations": {
         "matrix.h": "c",
         "window.h": "c",
-        "variables.h": "c"
+        "variables.h": "c",
+        "stdio.h": "c"
     },
     "makefile.configureOnOpen": true
 }
