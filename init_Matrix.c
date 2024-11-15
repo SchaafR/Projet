@@ -76,3 +76,13 @@ void freeMatrix(Matrix* matrix) {
     }
     free(matrix);
 }
+
+void emptyMatrix(Matrix* matrix) {
+    if(matrix == NULL)
+        return;
+    for(int y = 0 ; y < matrix->height ; y++) {
+        for(int x = 0 ; x < matrix->width ; x++) {
+            matrix->matrix[y][x] = false;
+        }
+    }
+}

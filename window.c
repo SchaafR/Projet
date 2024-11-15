@@ -21,8 +21,8 @@ void draw_line(SDL_Renderer *renderer, int x1, int y1, int x2, int y2) {
 
 
 void draw_filled_rectangle(SDL_Renderer *renderer, int x, int y, int width, int height) {
-    // Define color of a square 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255); // (R, G, B, A)
+    // Define color of a square (light brown)
+    SDL_SetRenderDrawColor(renderer, 168, 95, 12, 255); // (R, G, B, A)
     
     // dimention of a square 
     SDL_Rect rect;
@@ -81,7 +81,7 @@ void initSDL(SDL_Window** window, SDL_Renderer** renderer) {
         exit(EXIT_FAILURE);
     }
 
-    // renderer cvreation 
+    // renderer creation 
     *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
     if (!*renderer) {
         SDL_Log("Error durring renderer creation  : %s", SDL_GetError());

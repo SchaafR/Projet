@@ -36,6 +36,9 @@ $(EXEC): $(OBJS)
 clean:
 	rm -f $(OBJS) $(EXEC)
 
+re: clean all
+	
+
 # Nettoyer tout (objets et exécutable)
 mrproper: clean
 	rm -f $(EXEC)

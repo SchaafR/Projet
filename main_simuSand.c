@@ -25,44 +25,56 @@ int main(int argc, char** argv) {
     // main loop
     bool running = true, editing = false;
     while (running) {
-        // "Quit" event 
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            } else if (event.type == SDL_KEYDOWN) {
-                switch (event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        running = false;
-                        break;
+    SDL_Event event;
+    int x, y; // mouse coord
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            running = false;
+        } else if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    running = false;
+                    break;
 
-                    case SDLK_SPACE:
-                        editing = !editing;
-                        printf("edit mode : %s\n", editing? "ON": "OFF");
-                        break;
+                case SDLK_SPACE:
+                    editing = !editing;
+                    printf("edit mode : %s\n", editing ? "ON" : "OFF");
+                    break;
 
-                    case SDLK_BACKSPACE:
-                        if(editing) {
-                            printf("Empt\n");
-                            //emptyMatrix(matrix);
-                        }
-                        break;
-
-                }
-            } else if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT && editing) {
-                    matrix->matrix[event.button.y/GRAIN_SIZE][event.button.x/GRAIN_SIZE] = !matrix->matrix[event.button.y/GRAIN_SIZE][event.button.x/GRAIN_SIZE];
-                } 
+                case SDLK_BACKSPACE:
+                    if (editing) {
+                        printf("reset Window\n");
+                        emptyMatrix(matrix);
+                        
+                    }
+                    break;
             }
-
         }
+    }
+
+    // Botton down check
+    Uint32 mouseState = SDL_GetMouseState(&x, &y);
+    if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) { 
+        matrix->matrix[y / GRAIN_SIZE][x / GRAIN_SIZE] = !matrix->matrix[y / GRAIN_SIZE][x / GRAIN_SIZE];
+        
+    }
+
+    // Matrix update
+    if (!editing) {
+        simulate_sandfall(matrix); 
+    }
+
+    // Display
+    dispMatrix(matrix, renderer, editing);
+    SDL_Delay((int)(1000. / (float)REQ_FPS));
+}
 
         // Matrix update
-        if(editing == false) 
-            //updateMatrix(matrix);
+        if(editing == false){ 
+           simulate_sandfall(matrix);
         
         // display
-        // printMatrix(matrix);
+        
         dispMatrix(matrix, renderer, editing);
         SDL_Delay((int)(1000. / (float)REQ_FPS));
     }
