@@ -15,9 +15,6 @@
 #include <stdlib.h>
 
 
-
-
-
 void simulate_sandfall(Matrix *m) {
     for (int i = m->height - 2; i >= 0; i--) { // Parcours de bas en haut
         for (int j = 0; j < m->width; j++) {
