@@ -11,12 +11,6 @@
 #include <SDL2/SDL.h>
 
 
-#include <stdio.h>
-#include <stdlib.h>
-
-
-
-
 
 void simulate_sandfall(Matrix *m) {
     for (int i = m->height - 2; i >= 0; i--) { // Parcours de bas en haut

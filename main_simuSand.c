@@ -2,19 +2,25 @@
 this is the main
 */
 
-
 #include<stdio.h>
 #include<stdlib.h>
-
-
 #include "window.h"
 #include "process.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+
 
 
 int main(int argc, char** argv) {
     printf("Sand sim just started\n");
-    
+
+    TTF_Font* font = TTF_OpenFont("FreeSans.ttf", 12);
+    if (!font) {
+        SDL_Log("Error loading font: %s", TTF_GetError());
+        TTF_Quit();
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
     SDL_Window *window;
     SDL_Renderer *renderer;
     initSDL(&window, &renderer);
@@ -65,8 +71,13 @@ int main(int argc, char** argv) {
     }
 
     // Display
-    dispMatrix(matrix, renderer, editing);
+    dispMatrix(matrix, renderer, editing, font);
     SDL_Delay((int)(1000. / (float)REQ_FPS));
+    // Ajouter un encart avec du texte dans l'angle droit
+    SDL_Color textColor = {0, 0, 0, 255}; // Noir
+    draw_text(renderer, font, "Mode: Editing", WIDTH * GRAIN_SIZE - 200, 10, textColor);
+    
+
 }
 
         // Matrix update
@@ -82,6 +93,8 @@ int main(int argc, char** argv) {
     // clean and quit SDL
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
+    TTF_CloseFont(font);
     SDL_Quit();
 
     return EXIT_SUCCESS;

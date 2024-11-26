@@ -1,4 +1,3 @@
-
 # Nom de l'exécutable final
 EXEC = sand_sim
 
@@ -13,7 +12,7 @@ PKG_LIBS = $(shell pkg-config --libs sdl2) -L/opt/homebrew/lib -lSDL2
 CFLAGS = -Werror -Wall -D_THREAD_SAFE $(PKG_CONFIG_FLAGS)
 
 # Options de liaison
-LDFLAGS = $(PKG_LIBS)
+LDFLAGS = $(PKG_LIBS) -lSDL2_ttf
 
 # Liste des fichiers sources
 SRCS = main_simuSand.c init_Matrix.c process.c window.c
@@ -36,8 +35,8 @@ $(EXEC): $(OBJS)
 clean:
 	rm -f $(OBJS) $(EXEC)
 
+# Recompiler proprement
 re: clean all
-	
 
 # Nettoyer tout (objets et exécutable)
 mrproper: clean

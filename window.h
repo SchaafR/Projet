@@ -13,7 +13,7 @@
 #define HEIGHT 200
 #define WIDTH 170
 #define GRAIN_SIZE 4 // in pixel
-#define REQ_FPS 20
+#define REQ_FPS 60
 
 
 typedef struct Matrix_ {
@@ -33,7 +33,8 @@ void emptyMatrix(Matrix* matrix);
 
 void draw_line(SDL_Renderer *renderer, int x1, int y1, int x2, int y2);
 void draw_filled_rectangle(SDL_Renderer *renderer, int x, int y, int width, int height);
-void dispMatrix(Matrix* matrix, SDL_Renderer* renderer, bool editing);
+void draw_text(SDL_Renderer* renderer, TTF_Font* font, const char* text, int x, int y, SDL_Color color);
+void dispMatrix(Matrix* matrix, SDL_Renderer* renderer, bool editing, TTF_Font* font);
 void initSDL(SDL_Window** window, SDL_Renderer** renderer);
 
 #endif
