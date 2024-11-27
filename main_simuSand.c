@@ -5,8 +5,8 @@ this is the main
 
 #include<stdio.h>
 #include<stdlib.h>
-
-
+#define radius 1 // Rayon de la zone affectée
+#include <time.h>
 #include "window.h"
 #include "process.h"
 #include <SDL2/SDL.h>
@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
     bool running = true, editing = false;
     while (running) {
     SDL_Event event;
+    int state; // type of particule
     int x, y; // mouse coord
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
@@ -44,24 +45,60 @@ int main(int argc, char** argv) {
                 case SDLK_BACKSPACE:
                     if (editing) {
                         printf("reset Window\n");
-                        emptyMatrix(matrix);
-                        
+                        emptyMatrix(matrix);   
                     }
+                    break;
+
+                case SDLK_s:
+                    state = 1;
+                    break;
+
+                case SDLK_w:
+                    state = 2;
+                    break;
+
+                case SDLK_u:
+                    state = 3;
                     break;
             }
         }
     }
 
+    
     // Botton down check
     Uint32 mouseState = SDL_GetMouseState(&x, &y);
     if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) { 
-        matrix->matrix[y / GRAIN_SIZE][x / GRAIN_SIZE] = !matrix->matrix[y / GRAIN_SIZE][x / GRAIN_SIZE];
-        
+        int centerX = x / GRAIN_SIZE; // Calculate cordonates inside matrice
+        int centerY = y / GRAIN_SIZE;
+
+        // draw square surface
+        for (int dy = -radius; dy <= radius; dy++) {
+            for (int dx = -radius; dx <= radius; dx++) {
+                int newX = centerX + dx;
+                int newY = centerY + dy;
+
+                // Check coordonate inside matrix
+                if (newX >= 0 && newX < matrix->width && newY >= 0 && newY < matrix->height) {
+                    // add grain of sand
+                    matrix->matrix[newY][newX] = 1; // activate cells
+                }
+            }
+        }
     }
 
     // Matrix update
     if (!editing) {
-        simulate_sandfall(matrix); 
+        switch (state){
+            case 1:
+                simulate_sandfall(matrix);
+                break;
+            case 2:
+                simulate_waterfall(matrix);
+                break;
+            case 3:
+                simulate_wetsandfall(matrix);
+                break;
+        }
     }
 
     // Display
@@ -72,6 +109,8 @@ int main(int argc, char** argv) {
         // Matrix update
         if(editing == false){ 
            simulate_sandfall(matrix);
+           simulate_waterfall(matrix);
+           simulate_wetsandfall(matrix);
         
         // display
         

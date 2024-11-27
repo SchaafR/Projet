@@ -13,7 +13,7 @@
 #define HEIGHT 200
 #define WIDTH 170
 #define GRAIN_SIZE 4 // in pixel
-#define REQ_FPS 20
+#define REQ_FPS 60
 
 
 typedef struct Matrix_ {
